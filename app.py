@@ -18,6 +18,10 @@ except ImportError:
 
 bc = Basecamp(account, user, password, user_agent)
 
-projects = bc.getProjects()
+#API test
 
-# print json.dumps(projects, indent=4, sort_keys=True)
+# response = bc.getProjects()
+# response = bc.getArchivedProjects()
+response = bc.getProject(4799092)
+
+print json.dumps(response, indent=4, sort_keys=True)

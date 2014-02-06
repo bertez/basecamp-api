@@ -21,6 +21,8 @@ class Basecamp(object):
         self.agent = agent
 
     def __makeRequest(self, path, method='get', payload=None):
+        ''' Request handler '''
+
         # TO-DO
         # control response status codes
         # Implement Etag/If-None-Match
@@ -46,8 +48,25 @@ class Basecamp(object):
             print e
             sys.exit(1)
 
-        return request.json()
+        if request.status_code in [200, 304]:
+            return request.json()
+
+        return request.status_code
 
     def getProjects(self):
+        '''Return all active projects'''
+
         path = '/projects.json'
+        return self.__makeRequest(path)
+
+    def getArchivedProjects(self):
+        '''Return all archived projects'''
+
+        path = '/projects/archived.json'
+        return self.__makeRequest(path)
+
+    def getProject(self, id):
+        '''Return single project'''
+
+        path = '/projects/{0}.json'.format(id)
         return self.__makeRequest(path)
