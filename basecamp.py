@@ -8,8 +8,8 @@ Docs: https://github.com/basecamp/bcx-api
 
 """
 
+import sys
 import requests as r
-import json
 
 
 class Basecamp(object):
@@ -19,11 +19,6 @@ class Basecamp(object):
         self.password = password
         self.basepath = 'https://basecamp.com/{0}/api/v1'.format(self.account)
         self.agent = agent
-
-    #helper methods
-    def prettyPrint(self, string):
-        parsed = json.loads(string)
-        return json.dumps(parsed, indent=4, sort_keys=True)
 
     def __makeRequest(self, path, method='get', payload=None):
         # control exceptions
@@ -42,11 +37,15 @@ class Basecamp(object):
 
         requestMethod = getattr(r, method)
 
-        request = requestMethod(endpoint, auth=auth, data=data,
+        try:
+            request = requestMethod(endpoint, auth=auth, data=data,
                                 headers=headers)
+        except r.exceptions.RequestException as e:
+            print e
+            sys.exit(1)
 
-        return request.text
+        return request.json()
 
     def getProjects(self):
         path = '/projects.json'
-        return self.__makeRequest(path, 'get')
+        return self.__makeRequest(path)

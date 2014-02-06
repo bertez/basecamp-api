@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import json
 from basecamp import Basecamp
 
 #config, check this for docs: https://github.com/basecamp/bcx-api
@@ -19,4 +20,4 @@ bc = Basecamp(account, user, password, user_agent)
 
 projects = bc.getProjects()
 
-print bc.prettyPrint(projects)
+print json.dumps(projects, indent=4, sort_keys=True)
