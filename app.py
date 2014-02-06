@@ -20,4 +20,4 @@ bc = Basecamp(account, user, password, user_agent)
 
 projects = bc.getProjects()
 
-print json.dumps(projects, indent=4, sort_keys=True)
+# print json.dumps(projects, indent=4, sort_keys=True)

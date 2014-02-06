@@ -21,7 +21,9 @@ class Basecamp(object):
         self.agent = agent
 
     def __makeRequest(self, path, method='get', payload=None):
-        # control exceptions
+        # TO-DO
+        # control response status codes
+        # Implement Etag/If-None-Match
 
         endpoint = self.basepath + path
 
