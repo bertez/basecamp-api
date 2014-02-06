@@ -31,10 +31,12 @@ bc = Basecamp(account, user, password, user_agent)
 
 # response = bc.createProject(new_project)
 
-edit_project = {
-	'name': 'Do not delete me, please'
-}
+# edit_project = {
+# 	'name': 'Do not delete me, please'
+# }
 
-response = bc.updateProject(4994750, edit_project)
+# response = bc.updateProject(4994750, edit_project)
+
+response = bc.deleteProject(4994750)
 
 print json.dumps(response[0], indent=4, sort_keys=True)

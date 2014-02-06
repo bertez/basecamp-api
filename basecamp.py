@@ -46,11 +46,12 @@ class Basecamp(object):
         try:
             request = requestMethod(endpoint, auth=auth, data=data,
                                 headers=headers)
+            print request.text
         except r.exceptions.RequestException as e:
             print e
             sys.exit(1)
 
-        if request.status_code in [200, 201, 304]:
+        if request.status_code in [200, 201, 204, 304]:
             return (request.json(), request.headers)
 
         return request.status_code
@@ -84,3 +85,9 @@ class Basecamp(object):
 
         path = '/projects/{0}.json'.format(id)
         return self.__makeRequest(path, 'put', payload)
+
+    def deleteProject(self, id):
+        '''Deletes a project'''
+
+        path = '/projects/{0}.json'.format(id)
+        return self.__makeRequest(path, 'delete')
