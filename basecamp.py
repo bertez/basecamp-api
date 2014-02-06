@@ -22,7 +22,7 @@ class Basecamp(object):
         self.agent = agent
 
     def __makeRequest(self, path, method='get', payload=None):
-        ''' Request handler '''
+        """Request handler."""
 
         # TO-DO
         # Implement Etag/If-None-Match
@@ -45,7 +45,7 @@ class Basecamp(object):
 
         try:
             request = requestMethod(endpoint, auth=auth, data=data,
-                                headers=headers)
+                                    headers=headers)
             print request.text
         except r.exceptions.RequestException as e:
             print e
@@ -57,37 +57,37 @@ class Basecamp(object):
         return request.status_code
 
     def getProjects(self):
-        '''Returns all active projects'''
+        """Return all active projects."""
 
         path = '/projects.json'
         return self.__makeRequest(path)
 
     def getArchivedProjects(self):
-        '''Returns all archived projects'''
+        """Return all archived projects."""
 
         path = '/projects/archived.json'
         return self.__makeRequest(path)
 
-    def getProject(self, id):
-        '''Returns single project'''
+    def getProject(self, project_id):
+        """Return single project."""
 
-        path = '/projects/{0}.json'.format(id)
+        path = '/projects/{0}.json'.format(project_id)
         return self.__makeRequest(path)
 
     def createProject(self, payload):
-        '''Creates a project'''
+        """Create a project."""
 
         path = '/projects.json'
         return self.__makeRequest(path, 'post', payload)
 
-    def updateProject(self, id, payload):
-        '''Updates a project'''
+    def updateProject(self, project_id, payload):
+        """Update a project."""
 
-        path = '/projects/{0}.json'.format(id)
+        path = '/projects/{0}.json'.format(project_id)
         return self.__makeRequest(path, 'put', payload)
 
-    def deleteProject(self, id):
-        '''Deletes a project'''
+    def deleteProject(self, project_id):
+        """Delete a project."""
 
-        path = '/projects/{0}.json'.format(id)
+        path = '/projects/{0}.json'.format(project_id)
         return self.__makeRequest(path, 'delete')
