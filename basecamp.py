@@ -9,6 +9,7 @@ Docs: https://github.com/basecamp/bcx-api
 """
 
 import sys
+import json
 import requests as r
 
 
@@ -24,7 +25,6 @@ class Basecamp(object):
         ''' Request handler '''
 
         # TO-DO
-        # control response status codes
         # Implement Etag/If-None-Match
 
         endpoint = self.basepath + path
@@ -36,8 +36,10 @@ class Basecamp(object):
             'Content-Type': 'application/json'
         }
 
-        #data = json.loads(payload)
-        data = payload
+        if payload:
+            data = json.dumps(payload)
+        else:
+            data = payload
 
         requestMethod = getattr(r, method)
 
@@ -48,25 +50,37 @@ class Basecamp(object):
             print e
             sys.exit(1)
 
-        if request.status_code in [200, 304]:
-            return request.json()
+        if request.status_code in [200, 201, 304]:
+            return (request.json(), request.headers)
 
         return request.status_code
 
     def getProjects(self):
-        '''Return all active projects'''
+        '''Returns all active projects'''
 
         path = '/projects.json'
         return self.__makeRequest(path)
 
     def getArchivedProjects(self):
-        '''Return all archived projects'''
+        '''Returns all archived projects'''
 
         path = '/projects/archived.json'
         return self.__makeRequest(path)
 
     def getProject(self, id):
-        '''Return single project'''
+        '''Returns single project'''
 
         path = '/projects/{0}.json'.format(id)
         return self.__makeRequest(path)
+
+    def createProject(self, payload):
+        '''Creates a project'''
+
+        path = '/projects.json'
+        return self.__makeRequest(path, 'post', payload)
+
+    def updateProject(self, id, payload):
+        '''Updates a project'''
+
+        path = '/projects/{0}.json'.format(id)
+        return self.__makeRequest(path, 'put', payload)

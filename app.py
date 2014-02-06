@@ -22,6 +22,19 @@ bc = Basecamp(account, user, password, user_agent)
 
 # response = bc.getProjects()
 # response = bc.getArchivedProjects()
-response = bc.getProject(4799092)
+# response = bc.getProject(4994750)
 
-print json.dumps(response, indent=4, sort_keys=True)
+# new_project = {
+# 	'name': 'This is a test project. Do not delete.',
+# 	'description': 'Created using the API'
+# }
+
+# response = bc.createProject(new_project)
+
+edit_project = {
+	'name': 'Do not delete me, please'
+}
+
+response = bc.updateProject(4994750, edit_project)
+
+print json.dumps(response[0], indent=4, sort_keys=True)
