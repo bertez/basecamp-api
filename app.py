@@ -45,7 +45,7 @@ bc = Basecamp(account, user, password, user_agent)
 
 # response = bc.getPeople()
 # response = bc.getMe()
-# response = bc.getPerson(1546238)
+response = bc.getPerson(1546238)
 
 if response[0]:
 	# check if the response is json
