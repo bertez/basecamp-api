@@ -25,7 +25,8 @@ class Basecamp(object):
         """Request handler."""
 
         # TO-DO
-        # Implement Etag/If-None-Match
+        # Implement Etag/If-None-Match headers
+        # DELETE responses are quite different
 
         endpoint = self.basepath + path
 
@@ -54,6 +55,8 @@ class Basecamp(object):
             return (True, request.text, request.headers)
 
         return (False, request.status_code)
+
+    #Projects
 
     def getProjects(self):
         """Return all active projects."""
@@ -89,4 +92,22 @@ class Basecamp(object):
         """Delete a project."""
 
         path = '/projects/{0}.json'.format(project_id)
+        return self.__makeRequest(path, 'delete')
+
+    #People
+
+    def getPeople(self):
+        path = '/people.json'
+        return self.__makeRequest(path)
+
+    def getMe(self):
+        path = '/people/me.json'
+        return self.__makeRequest(path)
+
+    def getPerson(self, person_id):
+        path = '/people/{0}.json'.format(person_id)
+        return self.__makeRequest(path)
+
+    def deletePerson(self, person_id):
+        path = '/people/{0}.json'.format(person_id)
         return self.__makeRequest(path, 'delete')

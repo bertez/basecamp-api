@@ -20,6 +20,8 @@ bc = Basecamp(account, user, password, user_agent)
 
 #API test
 
+#Projects
+
 # response = bc.getProjects()
 # response = bc.getArchivedProjects()
 # response = bc.getProject(5007093)
@@ -37,13 +39,20 @@ bc = Basecamp(account, user, password, user_agent)
 
 # response = bc.updateProject(5007093, edit_project)
 
-response = bc.deleteProject(5007093)
+# response = bc.deleteProject(5007093)+
+
+#People
+
+# response = bc.getPeople()
+# response = bc.getMe()
+# response = bc.getPerson(1546238)
 
 if response[0]:
+	# check if the response is json
 	try:
 		output = json.loads(response[1])
-		print json.dumps(response[1], indent=4, sort_keys=True)
+		print json.dumps(output, indent=4, sort_keys=True)
 	except ValueError:
-		print response[1]
+		print response[0]
 else:
 	print 'Failed'
