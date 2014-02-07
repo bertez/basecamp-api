@@ -22,7 +22,7 @@ bc = Basecamp(account, user, password, user_agent)
 
 # response = bc.getProjects()
 # response = bc.getArchivedProjects()
-# response = bc.getProject(4994750)
+# response = bc.getProject(5007093)
 
 # new_project = {
 # 	'name': 'This is a test project. Do not delete.',
@@ -35,8 +35,15 @@ bc = Basecamp(account, user, password, user_agent)
 # 	'name': 'Do not delete me, please'
 # }
 
-# response = bc.updateProject(4994750, edit_project)
+# response = bc.updateProject(5007093, edit_project)
 
-response = bc.deleteProject(4994750)
+response = bc.deleteProject(5007093)
 
-print json.dumps(response[0], indent=4, sort_keys=True)
+if response[0]:
+	try:
+		output = json.loads(response[1])
+		print json.dumps(response[1], indent=4, sort_keys=True)
+	except ValueError:
+		print response[1]
+else:
+	print 'Failed'

@@ -46,15 +46,14 @@ class Basecamp(object):
         try:
             request = requestMethod(endpoint, auth=auth, data=data,
                                     headers=headers)
-            print request.text
         except r.exceptions.RequestException as e:
             print e
             sys.exit(1)
 
         if request.status_code in [200, 201, 204, 304]:
-            return (request.json(), request.headers)
+            return (True, request.text, request.headers)
 
-        return request.status_code
+        return (False, request.status_code)
 
     def getProjects(self):
         """Return all active projects."""
